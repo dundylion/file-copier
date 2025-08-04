@@ -1,12 +1,8 @@
 import hashlib
 import os
-import logging
+from src.logging.logger import get_logger
 
-logging.basicConfig(
-    filename='file_hasher.log',  
-    level=logging.ERROR,             
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+logger = get_logger(__name__)
 
 def get_quick_hash(file_path: str, chunk_size: int = 1000000) -> Optional[str]:  
     try:  
@@ -19,5 +15,5 @@ def get_quick_hash(file_path: str, chunk_size: int = 1000000) -> Optional[str]:
                 hasher.update(f.read())  
             return hasher.hexdigest()  
     except (FileNotFoundError, PermissionError, OSError) as e:  
-        logging.error(f'Ошибка чтения {file_path}: {str(e)}', exc_info=True)  
+        logger.error(f'Read error {file_path}: {str(e)}', exc_info=True)
         return None
