@@ -17,4 +17,5 @@ def get_quick_hash(file_path: str, chunk_size: int = 1024*1024) -> str | None:
             return hasher.hexdigest()  
     except (FileNotFoundError, PermissionError, OSError) as e:  
         logger.error(f'Read error {file_path}: {str(e)}', exc_info=True)
+        raise FileNotFoundError('File Acess Error. See logs') from e
         return None

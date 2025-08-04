@@ -68,6 +68,9 @@ class TestFileHashing(unittest.TestCase):
             manual_hash
         )
 
+    def test_nonexistent_file(self):
+        with self.assertRaises(FileNotFoundError):
+            get_quick_hash(Path("nonexistent_file.bin"))
 
 if __name__ == "__main__":
     unittest.main()
